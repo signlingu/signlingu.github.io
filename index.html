@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .progress-bar {
+            width: 100%;
+            background: #ccc;
+            height: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .progress {
+            height: 100%;
+            width: 0;
+            background: #4caf50;
+        }
+        .question-container {
+            margin: 50px auto;
+            width: 80%;
+        }
+        .options img {
+            width: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .result {
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar">
+    <div class="progress" id="progress"></div>
+</div>
+
+<div class="question-container">
+    <img id="question-image" src="a.png" alt="Question Image" width="300">
+    <div class="options" id="options">
+        <img src="a1.png" alt="Option 1" data-answer="false">
+        <img src="a2.png" alt="Option 2" data-answer="true">
+        <img src="a3.png" alt="Option 3" data-answer="false">
+        <img src="a4.png" alt="Option 4" data-answer="false">
+    </div>
+</div>
+
+<div class="result" id="result"></div>
+
+<script>
+    // Questions and answers data
+    const questions = [
+        { image: 'a.png', options: ['a1.png', 'a2.png', 'a3.png', 'a4.png'], correct: 1 },
+        { image: 'b.png', options: ['b1.png', 'b2.png', 'b3.png', 'b4.png'], correct: 2 },
+        { image: 'c.png', options: ['c1.png', 'c2.png', 'c3.png', 'c4.png'], correct: 0 }
+    ];
+
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+
+    const progress = document.getElementById('progress');
+    const questionImage = document.getElementById('question-image');
+    const optionsContainer = document.getElementById('options');
+    const result = document.getElementById('result');
+
+    function loadQuestion(index) {
+        const question = questions[index];
+        questionImage.src = question.image;
+
+        // Clear old options
+        optionsContainer.innerHTML = '';
+
+        // Add new options
+        question.options.forEach((option, i) => {
+            const img = document.createElement('img');
+            img.src = option;
+            img.alt = `Option ${i + 1}`;
+            img.setAttribute('data-answer', i === question.correct);
+            img.addEventListener('click', checkAnswer);
+            optionsContainer.appendChild(img);
+        });
+
+        // Update progress bar
+        progress.style.width = `${((index + 1) / questions.length) * 100}%`;
+    }
+
+    function checkAnswer(event) {
+        const isCorrect = event.target.getAttribute('data-answer') === 'true';
+        if (isCorrect) correctAnswers++;
+
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion(currentQuestion);
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        optionsContainer.innerHTML = '';
+        questionImage.style.display = 'none';
+        progress.style.width = '100%';
+
+        if (correctAnswers === questions.length) {
+            result.textContent = 'Perfect!';
+        } else {
+            result.textContent = 'Good job for trying!';
+        }
+    }
+
+    // Initialize the first question
+    loadQuestion(currentQuestion);
+</script>
+
+</body>
+</html>
