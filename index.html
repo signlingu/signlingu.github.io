@@ -3,124 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Quiz</title>
+    <title>Signlingu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="imgs/icon-3.png" type="image/png">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
             padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
         }
-        .progress-bar {
-            width: 100%;
-            background: #ccc;
-            height: 20px;
-            position: fixed;
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 60px 10px;
+            background-color: whitesmoke;
+            position: sticky;
             top: 0;
-            left: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #e5e5e5;
         }
-        .progress {
-            height: 100%;
-            width: 0;
-            background: #4caf50;
+        header img {
+            height: 40px;
         }
-        .question-container {
-            margin: 50px auto;
-            width: 80%;
+        .dropdown {
+            position: relative;
+            display: inline-block;
         }
-        .options img {
-            width: 100px;
-            margin: 10px;
+        .dropdown img {
+            height: 30px;
             cursor: pointer;
         }
-        .result {
-            font-size: 24px;
-            color: #333;
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
         }
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333333;
+            white-space: nowrap;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        main {
+            text-align: center;
+            padding: 60px 100px;
+        }
+        main img {
+            max-width: 100%;
+            height: auto;
+        }
+        .button1 {
+            background-color: #5ca300;
+            color: white;
+            padding: 12px 50px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .button1:hover {
+            background-color: #1e7e34;
+        }
+         .button2 {
+            background-color: #1e7e34;
+            color: white;
+            padding: 12px 26px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: medium;
+        }
+        .button2:hover {
+            background-color: #5ca300;
+        }
+        section {
+            text-align: center;
+            padding: 60px 100px;
+        }
+        .section-gray {
+            background-color: #f9f9f9;
+        }
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .button-group a {
+            display: inline-block;
+            background-color: #ED1818;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .button-group a:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #13A4D6;
+            color: white;
+        }
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        footer img {
+            height: 24px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+        
+        /* Mobile-specific styles */
+@media (max-width: 768px) {
+    .button1, .button2 {
+        padding: 10px 20px; /* Reduced padding for smaller screens */
+        font-size: 16px;    /* Smaller font size for mobile */
+    }
+}
+        
     </style>
 </head>
 <body>
-
-<div class="progress-bar">
-    <div class="progress" id="progress"></div>
-</div>
-
-<div class="question-container">
-    <img id="question-image" src="a.png" alt="Question Image" width="300">
-    <div class="options" id="options">
-        <img src="a1.png" alt="Option 1" data-answer="false">
-        <img src="a2.png" alt="Option 2" data-answer="true">
-        <img src="a3.png" alt="Option 3" data-answer="false">
-        <img src="a4.png" alt="Option 4" data-answer="false">
-    </div>
-</div>
-
-<div class="result" id="result"></div>
-
-<script>
-    // Questions and answers data
-    const questions = [
-        { image: 'a.png', options: ['a1.png', 'a2.png', 'a3.png', 'a4.png'], correct: 1 },
-        { image: 'b.png', options: ['b1.png', 'b2.png', 'b3.png', 'b4.png'], correct: 2 },
-        { image: 'c.png', options: ['c1.png', 'c2.png', 'c3.png', 'c4.png'], correct: 0 }
-    ];
-
-    let currentQuestion = 0;
-    let correctAnswers = 0;
-
-    const progress = document.getElementById('progress');
-    const questionImage = document.getElementById('question-image');
-    const optionsContainer = document.getElementById('options');
-    const result = document.getElementById('result');
-
-    function loadQuestion(index) {
-        const question = questions[index];
-        questionImage.src = question.image;
-
-        // Clear old options
-        optionsContainer.innerHTML = '';
-
-        // Add new options
-        question.options.forEach((option, i) => {
-            const img = document.createElement('img');
-            img.src = option;
-            img.alt = `Option ${i + 1}`;
-            img.setAttribute('data-answer', i === question.correct);
-            img.addEventListener('click', checkAnswer);
-            optionsContainer.appendChild(img);
-        });
-
-        // Update progress bar
-        progress.style.width = `${((index + 1) / questions.length) * 100}%`;
-    }
-
-    function checkAnswer(event) {
-        const isCorrect = event.target.getAttribute('data-answer') === 'true';
-        if (isCorrect) correctAnswers++;
-
-        currentQuestion++;
-        if (currentQuestion < questions.length) {
-            loadQuestion(currentQuestion);
-        } else {
-            showResult();
-        }
-    }
-
-    function showResult() {
-        optionsContainer.innerHTML = '';
-        questionImage.style.display = 'none';
-        progress.style.width = '100%';
-
-        if (correctAnswers === questions.length) {
-            result.textContent = 'Perfect!';
-        } else {
-            result.textContent = 'Good job for trying!';
-        }
-    }
-
-    // Initialize the first question
-    loadQuestion(currentQuestion);
-</script>
-
+    <header>
+        <a href="https://signlingu.github.io/"><img src="imgs/icon-3.png" alt="Signlingu Logo"></a>
+        <div class="dropdown">
+            <img src="imgs/dropdown.png" alt="Menu">
+            <div class="dropdown-content">
+                <a href="signlingu-1224/bisindo-preview.html">
+                    <img src="imgs/indonesia.png" alt="Indonesia" style="height: 16px; vertical-align: middle;">
+                    BISINDO
+                </a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h2>Bring the world closer—<u>one sign at a time</u>
+</h2>
+        <img src="imgs/home.gif" alt="Signlingu Intro Image"><br>
+        <a href="signlingu-1224/get-started.html" class="button1">GET STARTED</a><br>
+            
+        <br><br>
+        
+        <a href="signlingu-1224/bisindo-preview.html" class="button2"><img src="imgs/indonesia.png" alt="Indonesia" style="height: 17px;">  LEARN <b>BISINDO</b></a>
+    </main>
+    <section class="section-gray">
+        <h2>What is Signlingu?</h2>
+        <p>
+            Signlingu is a volunteer-driven platform designed to make learning sign language accessible and fun for everyone. 
+            Our mission is to create a society that is comfortable for sign language users. By learning sign language, 
+            we help break down barriers and build a more inclusive, connected world.
+        </p>
+    </section>
+    <section>
+        <h2>How It Works</h2>
+        <p>
+            At Signlingu, we believe in learning through repetition. Our exercise focuses on reinforcing memory 
+            and ensuring that users can recall signs before they practice acting them out on their own. This method 
+            helps you build a solid foundation for long-term retention.
+        </p>
+    </section>
+    <section class="section-gray">
+        <h2>Who Are We?</h2>
+        <p>
+            Signlingu is a team of passionate volunteers from diverse backgrounds, dedicated to providing 
+            100% free sign language resources to support our mission of connecting the world.
+        </p>
+        <div class="button-group">
+            <a href="https://bit.ly/volunteer-form-signlingu" target="_blank">VOLUNTEER</a>
+        </div>
+    </section>
+    <footer>
+        <p> <a href="mailto:signlingu@gmail.com">signlingu@gmail.com</a></p>
+      
+    </footer>
 </body>
 </html>
