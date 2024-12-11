@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signlingu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="icon-bg.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 60px 10px;
+            background-color: whitesmoke;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        header img {
+            height: 40px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown img {
+            height: 30px;
+            cursor: pointer;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333333;
+            white-space: nowrap;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        main {
+            text-align: center;
+            padding: 60px 100px;
+        }
+        main img {
+            max-width: 100%;
+            height: auto;
+        }
+        .button1 {
+            background-color: #5ca300;
+            color: white;
+            padding: 12px 50px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .button1:hover {
+            background-color: #1e7e34;
+        }
+         .button2 {
+            background-color: #1e7e34;
+            color: white;
+            padding: 12px 26px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: medium;
+        }
+        .button2:hover {
+            background-color: #5ca300;
+        }
+        section {
+            text-align: center;
+            padding: 60px 100px;
+        }
+        .section-gray {
+            background-color: #f9f9f9;
+        }
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+                        margin-bottom: 20px;
+
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .button-group a {
+            display: inline-block;
+            background-color: #ED1818;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .button-group a:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #13A4D6;
+            color: white;
+        }
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        footer img {
+            height: 24px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+        
+        /* Mobile-specific styles */
+@media (max-width: 768px) {
+    .button1, .button2 {
+        padding: 10px 20px; /* Reduced padding for smaller screens */
+        font-size: 16px;    /* Smaller font size for mobile */
+    }
+}
+        
+    </style>
+</head>
+<body>
+    <header>
+        <a href="https://signlingu.github.io/"><img src="icon-3.png" alt="Signlingu Logo"></a>
+        <div class="dropdown">
+            <img src="dropdown.png" alt="Menu">
+            <div class="dropdown-content">
+                <a href="bisindo.html">
+                    <img src="indonesia.png" alt="Indonesia" style="height: 16px; vertical-align: middle;">
+                    Indonesia Sign Language
+                </a>
+            </div>
+        </div>
+    </header>
+ 
+    <section class="section">
+        <h2>Our BISINDO Course is Still Under Construction! 🚧
+</h2>
+        <p>We’re working hard to build a comprehensive and engaging BISINDO curriculum, but we’re not there yet. To reach our vision of breaking barriers and making sign language accessible to everyone, we need your help!
+          <b>  <a href="https://bit.ly/volunteer-form-signlingu" target="_blank">Volunteer</a> </b>with us to speed up the process and help perfect our curriculum! 
+<br><br>
+While we continue building, would you like to preview a draft of what we have in mind?
+        
+        </p>
+      <br>
+        
+           <a href="exercise-preview/bisindo.html" class="button2"> OK!</a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </section>
+    <footer>
+        <p> <a href="mailto:signlingu@gmail.com">signlingu@gmail.com</a></p>
+      
+    </footer>
+</body>
+</html>
